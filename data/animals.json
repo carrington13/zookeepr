@@ -126,6 +126,18 @@
         "hungry"
       ],
       "id": "12"
+    },
+    {
+      "name": "Maya",
+      "species": "fuckin' dog",
+      "diet": "omnivore",
+      "personalityTraits": [
+        "hungry",
+        "anxious",
+        "loving",
+        "goofy"
+      ],
+      "id": "13"
     }
   ]
 }

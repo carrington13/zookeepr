@@ -6,11 +6,16 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 
+// ---------------------
+// Express.js MIDDLEWARE
+// ---------------------
+
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
-
+// makes some files readily available and not gated behind a server endpoint
+app.use(express.static('public'));
 
 // filter requests by ?queries 
 function filterByQuery (query, animalsArray) {
@@ -130,6 +135,27 @@ app.post('/api/animals', (req, res) => {
     }
 }); 
 
+// send index on page load
+// '/' refers to root route of the server
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+// wildcard route
+// captures any non-existent route and will return it to the main page
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+// ALWAYS ON THE BOTTOM
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 })
